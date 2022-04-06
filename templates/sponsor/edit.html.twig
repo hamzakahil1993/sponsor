@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le Sponsor{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="mt-2 mb-2">Modifier le Sponsor</h1>
+    {{ include('sponsor/_form.html.twig', {'button_label': 'Modifier'}) }}
+</div>
+{% endblock %}

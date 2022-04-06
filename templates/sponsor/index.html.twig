@@ -1,20 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SponsorController!{% endblock %}
+{% block title %}Sponsor index{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/hamza/OneDrive/Bureau/Nouveau dossier/sponsor/src/Controller/SponsorController.php'|file_link(0) }}">src/Controller/SponsorController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/hamza/OneDrive/Bureau/Nouveau dossier/sponsor/templates/sponsor/index.html.twig'|file_link(0) }}">templates/sponsor/index.html.twig</a></code></li>
-    </ul>
+<div class="container">
+    <h1 class="mt-2">List de sponsors</h1>
+    <a href="{{ path('app_sponsor_new') }}" class="btn btn-primary mt-3 mb-3">Créer un nouveau sponsor</a>
+    <dic class="card">
+        <div class="card-body">
+            <table class="table" id="table-sponsor">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Sponsor</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Adresse email</th>
+                        <th>Code postal</th>
+                        <th>Pays</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sponsor in sponsors %}
+                    <tr>
+                        <td>{{ sponsor.id }}</td>
+                        <td>{{ sponsor.sponsor }}</td>
+                        <td>{{ sponsor.lastName }}</td>
+                        <td>{{ sponsor.firstName }}</td>
+                        <td>{{ sponsor.email }}</td>
+                        <td>{{ sponsor.postalCode }}</td>
+                        <td>{{ sponsor.country }}</td>
+                        <td>
+                            <a class="btn btn-success" href="{{ path('app_sponsor_edit', {'id': sponsor.id}) }}">Modifier</a>
+                            {{ include('sponsor/_delete_form.html.twig') }}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="8">Pas de sponsor trouvés</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </dic>
 </div>
+
+{% endblock %}
+{% block javascripts %}
+<script>
+    $(document).ready( function () {
+        $('#table-sponsor').DataTable();
+    } );
+</script>
 {% endblock %}
